@@ -1,3 +1,1 @@
-class Plant{
-
-}
+class Plant {}

@@ -34,8 +34,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
               label: 'Your plants', icon: const Icon(Icons.list)),
           BottomNavigationBarItem(
               label: 'Add plant', icon: const Icon(Icons.add)),
-          BottomNavigationBarItem(
-              label: 'Tasks', icon: const Icon(Icons.task)),
+          BottomNavigationBarItem(label: 'Tasks', icon: const Icon(Icons.task)),
         ],
         currentIndex: _selectedIndex,
         itemChanged: (idx) => setState(() {
