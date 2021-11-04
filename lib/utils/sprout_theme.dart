@@ -1,30 +1,32 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+
 
 class SproutTheme {
-// 1
+// todo: add cupertino theme data
   static TextTheme lightTextTheme = TextTheme(
-    bodyText1: GoogleFonts.openSans(
+    bodyText1: TextStyle(
       fontSize: 14.0,
       fontWeight: FontWeight.w700,
       color: Colors.black,
     ),
-    headline1: GoogleFonts.openSans(
+    headline1: TextStyle(
       fontSize: 32.0,
       fontWeight: FontWeight.bold,
       color: Colors.black,
     ),
-    headline2: GoogleFonts.openSans(
+    headline2: TextStyle(
       fontSize: 21.0,
       fontWeight: FontWeight.w700,
       color: Colors.black,
     ),
-    headline3: GoogleFonts.openSans(
+    headline3: TextStyle(
       fontSize: 16.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
     ),
-    headline6: GoogleFonts.openSans(
+    headline6: TextStyle(
       fontSize: 20.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
@@ -33,27 +35,27 @@ class SproutTheme {
 
   // 2
   static TextTheme darkTextTheme = TextTheme(
-    bodyText1: GoogleFonts.openSans(
+    bodyText1: TextStyle(
       fontSize: 14.0,
       fontWeight: FontWeight.w700,
       color: Colors.white,
     ),
-    headline1: GoogleFonts.openSans(
+    headline1: TextStyle(
       fontSize: 32.0,
       fontWeight: FontWeight.bold,
       color: Colors.white,
     ),
-    headline2: GoogleFonts.openSans(
+    headline2: TextStyle(
       fontSize: 21.0,
       fontWeight: FontWeight.w700,
       color: Colors.white,
     ),
-    headline3: GoogleFonts.openSans(
+    headline3: TextStyle(
       fontSize: 16.0,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
-    headline6: GoogleFonts.openSans(
+    headline6: TextStyle(
       fontSize: 20.0,
       fontWeight: FontWeight.w600,
       color: Colors.white,

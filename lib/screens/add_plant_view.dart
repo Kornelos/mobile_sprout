@@ -1,19 +1,21 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mobile_sprout/utils/sprout_theme.dart';
+import 'package:mobile_sprout/providers/settings_provider.dart';
+import 'package:provider/provider.dart';
 
 class AddPlantView extends StatelessWidget {
   const AddPlantView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final theme = SproutTheme.dark();
+    ThemeData _theme = Provider.of<SettingsProvider>(context).getTheme();
     return PlatformScaffold(
-        backgroundColor: theme.scaffoldBackgroundColor,
+        backgroundColor: _theme.scaffoldBackgroundColor,
         appBar: PlatformAppBar(
-          backgroundColor: theme.appBarTheme.backgroundColor,
+          backgroundColor: _theme.appBarTheme.backgroundColor,
         ),
         body: Center(
-            child: Text("add plant view", style: theme.textTheme.headline6)));
+            child: Text("add plant view", style: _theme.textTheme.headline6)));
   }
 }
