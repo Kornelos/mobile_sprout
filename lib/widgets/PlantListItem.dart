@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mobile_sprout/screens/PlantDetailsScreen.dart';
-import 'package:mobile_sprout/screens/PlantListView.dart';
+import 'package:mobile_sprout/screens/plant_details_screen.dart';
+import 'package:mobile_sprout/screens/plant_list_view.dart';
 
 class PlantListItem extends StatelessWidget {
   const PlantListItem({Key? key, required this.index}) : super(key: key);
@@ -33,7 +33,6 @@ class PlantListItem extends StatelessWidget {
         ),
       )),
       onTap: () {
-        print("clicked");
         Navigator.push(
             context,
             platformPageRoute(

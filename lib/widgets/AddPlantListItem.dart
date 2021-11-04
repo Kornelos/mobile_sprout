@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mobile_sprout/screens/AddPlantView.dart';
+import 'package:mobile_sprout/screens/add_plant_view.dart';
 
 class AddPlantListItem extends StatelessWidget {
   const AddPlantListItem({Key? key}) : super(key: key);
@@ -34,7 +34,6 @@ class AddPlantListItem extends StatelessWidget {
                 ],
               ))),
       onTap: () {
-        print("clicked");
         Navigator.push(
             context,
             platformPageRoute(
