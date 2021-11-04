@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:mobile_sprout/screens/AddPlantView.dart';
-import 'package:mobile_sprout/screens/TasksView.dart';
+import 'package:mobile_sprout/screens/add_plant_view.dart';
+import 'package:mobile_sprout/screens/tasks_view.dart';
 
-import 'PlantListView.dart';
+import 'plant_list_view.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({Key? key}) : super(key: key);
