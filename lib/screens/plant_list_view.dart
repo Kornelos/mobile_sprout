@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:mobile_sprout/model/plant.dart';
 import 'package:mobile_sprout/widgets/AddPlantListItem.dart';
 import 'package:mobile_sprout/widgets/PlantListItem.dart';
 
@@ -7,7 +8,11 @@ class PlantListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> plants = ['1', '2', '3', '4', '5', '6', '7'];
+    final List<Plant> plants = [
+      Plant("plant 1"),
+      Plant("plant 2"),
+      Plant("plant 3"),
+    ];
 
     return Container(
       child: GridView.builder(
@@ -16,18 +21,18 @@ class PlantListView extends StatelessWidget {
               childAspectRatio: 1,
               crossAxisSpacing: 5,
               mainAxisSpacing: 20),
-          itemCount: plants.length,
+          itemCount: plants.length + 1,
           itemBuilder: (BuildContext ctx, index) {
-            return listItem(index);
+            return listItem(index, plants);
           }),
     );
   }
 
-  listItem(int index) {
+  listItem(int index, List<Plant> plants) {
     if (index == 0) {
       return AddPlantListItem();
     } else {
-      return PlantListItem(index: index);
+      return PlantListItem(plant: plants[index - 1]);
     }
   }
 }

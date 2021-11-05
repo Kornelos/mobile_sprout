@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:mobile_sprout/model/plant.dart';
 import 'package:mobile_sprout/screens/plant_details_screen.dart';
 import 'package:mobile_sprout/screens/plant_list_view.dart';
 
 class PlantListItem extends StatelessWidget {
-  const PlantListItem({Key? key, required this.index}) : super(key: key);
+  const PlantListItem({Key? key, required this.plant}) : super(key: key);
 
-  final int index;
+  final Plant plant;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class PlantListItem extends StatelessWidget {
             Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  "Plant name",
+                  plant.name,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 )),
           ],
@@ -38,7 +39,7 @@ class PlantListItem extends StatelessWidget {
             platformPageRoute(
                 context: context,
                 builder: (context) {
-                  return PlantDetailsView();
+                  return PlantDetailsView(plant: plant);
                 }));
       },
     );
