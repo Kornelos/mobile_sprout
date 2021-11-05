@@ -39,6 +39,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       bottomNavBar: PlatformNavBar(
         backgroundColor: _theme.bottomAppBarColor,
         items: [
+          //todo: items colors in dark mode
           BottomNavigationBarItem(
               label: 'Your plants', icon: const Icon(Icons.list)),
           BottomNavigationBarItem(
