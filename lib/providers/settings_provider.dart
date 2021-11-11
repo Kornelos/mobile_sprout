@@ -45,7 +45,8 @@ class SettingsProvider extends ChangeNotifier {
   void _setThemeOrDefault() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey(isDarkKey) && prefs.getBool(isDarkKey) != null) {
-      _appTheme = prefs.getBool(isDarkKey)! ? SproutTheme.dark() : SproutTheme.light();
+      _appTheme =
+          prefs.getBool(isDarkKey)! ? SproutTheme.dark() : SproutTheme.light();
     } else {
       // defaults to light
       _appTheme = SproutTheme.light();

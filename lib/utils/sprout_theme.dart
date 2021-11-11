@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-
 class SproutTheme {
 // todo: add cupertino theme data
   static TextTheme lightTextTheme = TextTheme(
