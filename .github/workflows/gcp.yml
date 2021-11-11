@@ -20,7 +20,7 @@ jobs:
         with:
           name: plant-info
           region: europe-central2
-          source_dir: /sprout_functions
+          source_dir: sprout_functions
           max_instances: 3
           runtime: go116
           credentials: ${{ secrets.gcp_credentials }}
