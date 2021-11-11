@@ -28,9 +28,9 @@ class SettingsProvider extends ChangeNotifier {
   Future<void> _persistChange() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (isDarkTheme()) {
-      prefs.setBool(isDarkKey, false);
-    } else {
       prefs.setBool(isDarkKey, true);
+    } else {
+      prefs.setBool(isDarkKey, false);
     }
   }
 

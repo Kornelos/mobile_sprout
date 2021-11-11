@@ -18,9 +18,9 @@ class PlantListView extends StatelessWidget {
       "https://s3.amazonaws.com/openfarm-project/production/media/pictures/attachments/5928732ef9f0b200040000c0.jpg?1495823146",
     );
     final List<Plant> plants = [
-      Plant("plant 1", info),
-      Plant("plant 2", info),
-      Plant("plant 3", info),
+      Plant("Living Room plant", info),
+      Plant("Kitchen plant", info),
+      Plant("My favourite plant", info),
     ];
 
     return Container(
