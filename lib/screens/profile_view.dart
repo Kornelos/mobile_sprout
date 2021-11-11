@@ -24,15 +24,18 @@ class ProfileView extends StatelessWidget {
               style: _theme.textTheme.headline1,
             )),
         PlatformListTile(
-          title: Text('Dark Mode', style: _theme.textTheme.button,),
+          title: Text(
+            'Dark Mode',
+            style: _theme.textTheme.button,
+          ),
           trailing: DarkModeSwitch(),
         ),
         PlatformListTile(
-          title:  Text('Language', style: _theme.textTheme.button),
+          title: Text('Language', style: _theme.textTheme.button),
           trailing: Text('English', style: _theme.textTheme.caption),
         ),
         PlatformListTile(
-          title:  Text('Log out', style: _theme.textTheme.button),
+          title: Text('Log out', style: _theme.textTheme.button),
           trailing: Icon(Icons.logout),
         ),
       ]),

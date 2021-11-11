@@ -92,7 +92,7 @@ class PlantNameAndPicture extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text(plant.name, style: theme.textTheme.headline1),
+          Text(plant.nickname, style: theme.textTheme.headline1),
           Image.asset(
             'assets/aloes.jpeg',
             scale: 2,
