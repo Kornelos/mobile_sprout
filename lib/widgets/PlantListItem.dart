@@ -28,6 +28,7 @@ class PlantListItem extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Text(
                   plant.nickname,
+
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 )),
           ],
