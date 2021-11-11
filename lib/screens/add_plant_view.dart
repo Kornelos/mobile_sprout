@@ -15,7 +15,15 @@ class AddPlantView extends StatelessWidget {
         appBar: PlatformAppBar(
           backgroundColor: _theme.appBarTheme.backgroundColor,
         ),
-        body: Center(
-            child: Text("add plant view", style: _theme.textTheme.headline6)));
+        body: ListView(
+          children: [
+            Text(
+              "Add new plant",
+              textAlign: TextAlign.center,
+              style: _theme.textTheme.headline1,
+            ),
+            PlatformTextField(),
+          ],
+        ));
   }
 }
