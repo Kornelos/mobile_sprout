@@ -7,6 +7,7 @@ import (
 	"errors"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 )
@@ -111,7 +112,7 @@ func getPlantFromDb(ctx context.Context, client *firestore.Client, plantName str
 // api functions
 
 func getPlantFromApi(plantName string) (*PlantInfo, error) {
-	resp, err := http.Get("https://openfarm.cc/api/v1/crops/?filter=" + plantName)
+	resp, err := http.Get("https://openfarm.cc/api/v1/crops/?filter=" + url.QueryEscape(plantName))
 	if err != nil {
 		return nil, err
 	}

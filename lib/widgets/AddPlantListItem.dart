@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:mobile_sprout/screens/add_plant_view.dart';
 
 class AddPlantListItem extends StatelessWidget {
@@ -11,7 +10,7 @@ class AddPlantListItem extends StatelessWidget {
     return GestureDetector(
       child: Container(
           child: Card(
-              color: Color(0xF3EBD8),
+              color: Colors.lightGreen[800],
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(3.0)),
               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -34,13 +33,9 @@ class AddPlantListItem extends StatelessWidget {
                 ],
               ))),
       onTap: () {
-        Navigator.push(
-            context,
-            platformPageRoute(
-                context: context,
-                builder: (context) {
-                  return AddPlantView();
-                }));
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return AddPlantView();
+        }));
       },
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:mobile_sprout/model/plant.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
@@ -13,11 +12,12 @@ class PlantDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData _theme = Provider.of<SettingsProvider>(context).getTheme();
-    return PlatformScaffold(
+    return Scaffold(
       backgroundColor: _theme.scaffoldBackgroundColor,
-      appBar: PlatformAppBar(
+      appBar: AppBar(
+        iconTheme: _theme.iconTheme,
         backgroundColor: _theme.appBarTheme.backgroundColor,
-        trailingActions: [Icon(Icons.info)], //todo change to platform icon?
+        actions: [Icon(Icons.info_outline)],
       ),
       body: ListView(
           //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -190,7 +190,6 @@ class PlantNameAndPicture extends StatelessWidget {
             'assets/aloes.jpeg',
             scale: 2,
           ),
-
         ],
       ),
     );

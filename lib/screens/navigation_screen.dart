@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
 import 'package:mobile_sprout/screens/add_plant_view.dart';
 import 'package:mobile_sprout/screens/profile_view.dart';
@@ -20,7 +19,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 0;
   static const List<Widget> _presentedWidgets = [
     PlantListView(),
-    AddPlantView(),
     TasksView(),
     ProfileView(),
   ];
@@ -28,28 +26,28 @@ class _NavigationScreenState extends State<NavigationScreen> {
   @override
   Widget build(BuildContext context) {
     ThemeData _theme = Provider.of<SettingsProvider>(context).getTheme();
-    return PlatformScaffold(
+    return Scaffold(
       backgroundColor: _theme.scaffoldBackgroundColor,
-      appBar: PlatformAppBar(
+      appBar: AppBar(
         backgroundColor: _theme.appBarTheme.backgroundColor,
       ),
       body: Center(
         child: _presentedWidgets.elementAt(_selectedIndex),
       ),
-      bottomNavBar: PlatformNavBar(
+      bottomNavigationBar: BottomNavigationBar(
         backgroundColor: _theme.bottomAppBarColor,
+        selectedItemColor: Colors.lightGreen[800],
+        unselectedItemColor: Colors.lightGreen,
         items: [
           //todo: items colors in dark mode
           BottomNavigationBarItem(
               label: 'Your plants', icon: const Icon(Icons.list)),
-          BottomNavigationBarItem(
-              label: 'Add plant', icon: const Icon(Icons.add)),
           BottomNavigationBarItem(label: 'Tasks', icon: const Icon(Icons.task)),
           BottomNavigationBarItem(
-              label: 'Profile', icon: const Icon(Icons.person)),
+              label: 'Profile & Settings', icon: const Icon(Icons.person)),
         ],
         currentIndex: _selectedIndex,
-        itemChanged: (idx) => setState(() {
+        onTap: (idx) => setState(() {
           _selectedIndex = idx;
         }),
       ),

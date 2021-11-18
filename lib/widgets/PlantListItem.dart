@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:mobile_sprout/model/plant.dart';
 import 'package:mobile_sprout/screens/plant_details_screen.dart';
-import 'package:mobile_sprout/screens/plant_list_view.dart';
 
 class PlantListItem extends StatelessWidget {
   const PlantListItem({Key? key, required this.plant}) : super(key: key);
@@ -28,20 +26,15 @@ class PlantListItem extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Text(
                   plant.nickname,
-
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 )),
           ],
         ),
       )),
       onTap: () {
-        Navigator.push(
-            context,
-            platformPageRoute(
-                context: context,
-                builder: (context) {
-                  return PlantDetailsView(plant: plant);
-                }));
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return PlantDetailsView(plant: plant);
+        }));
       },
     );
   }
