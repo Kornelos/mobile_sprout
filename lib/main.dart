@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
 import 'package:mobile_sprout/screens/navigation_screen.dart';
+import 'package:mobile_sprout/utils/sprout_theme.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -25,10 +25,15 @@ class SproutApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider.value(
-        value: SettingsProvider(),
-      )
-    ], child: PlatformApp(home: NavigationScreen()));
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(
+            value: SettingsProvider(),
+          )
+        ],
+        child: MaterialApp(
+          home: NavigationScreen(),
+          //theme: SproutTheme.light(),
+        ));
   }
 }

@@ -190,13 +190,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
-  cupertino_list_tile:
-    dependency: transitive
-    description:
-      name: cupertino_list_tile
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   dart_style:
     dependency: transitive
     description:
@@ -244,13 +237,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_platform_widgets:
-    dependency: "direct main"
-    description:
-      name: flutter_platform_widgets
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.9.5"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -436,13 +422,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
-  platform_list_tile:
-    dependency: "direct main"
-    description:
-      name: platform_list_tile
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.1"
   plugin_platform_interface:
     dependency: transitive
     description:

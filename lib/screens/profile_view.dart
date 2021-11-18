@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
-import 'package:mobile_sprout/utils/sprout_theme.dart';
-import 'package:platform_list_tile/platform_list_tile.dart';
 import 'package:provider/provider.dart';
 
 class ProfileView extends StatelessWidget {
@@ -23,18 +19,18 @@ class ProfileView extends StatelessWidget {
               "Settings",
               style: _theme.textTheme.headline1,
             )),
-        PlatformListTile(
+        ListTile(
           title: Text(
             'Dark Mode',
             style: _theme.textTheme.button,
           ),
           trailing: DarkModeSwitch(),
         ),
-        PlatformListTile(
+        ListTile(
           title: Text('Language', style: _theme.textTheme.button),
           trailing: Text('English', style: _theme.textTheme.caption),
         ),
-        PlatformListTile(
+        ListTile(
           title: Text('Log out', style: _theme.textTheme.button),
           trailing: Icon(Icons.logout),
         ),
@@ -64,7 +60,7 @@ class _DarkModeSwitchState extends State<DarkModeSwitch> {
   Widget build(BuildContext context) {
     var settingsProvider = Provider.of<SettingsProvider>(context);
     isOn = settingsProvider.isDarkTheme();
-    return PlatformSwitch(
+    return Switch(
       value: isOn,
       onChanged: (bool) => {toggleSwitchAndChangeTheme(settingsProvider)},
     );
