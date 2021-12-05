@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 class Plant extends Equatable {
   final String nickname;
   final PlantInfo info;
+  final String imagePath = "assets/plant_sprite.png";
 
   Plant(this.nickname, this.info);
 

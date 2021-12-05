@@ -145,8 +145,3 @@ type Attributes struct {
 	SowingMethod    string `json:"sowing_method"`
 	MainImagePath   string `json:"main_image_path"`
 }
-
-func respondWithError(w http.ResponseWriter, msg string, status int) {
-	w.WriteHeader(status)
-	w.Write([]byte(msg))
-}

@@ -13,18 +13,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  camera: ^0.9.4+3
-  path: ^1.8.0
-  path_provider: ^2.0.6
   equatable: ^2.0.3
   provider: ^6.0.1
   shared_preferences: ^2.0.8
   http: ^0.13.4
-
+  image_picker: ^0.8.4+4
 
   cupertino_icons: ^1.0.2
-#  flutter_platform_widgets: ^1.9.5
-#  platform_list_tile: ^0.0.1
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +40,7 @@ flutter:
 
   assets:
     - assets/aloes.jpeg
+    - assets/plant_sprite.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
