@@ -19,7 +19,7 @@ class PlantListItem extends StatelessWidget {
         child: Stack(
           children: [
             Image.asset(
-              "assets/aloes.jpeg",
+              "assets/plant_sprite.png",
               fit: BoxFit.contain,
             ),
             Align(

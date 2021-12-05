@@ -27,7 +27,6 @@ class PlantListView extends StatelessWidget {
 
     List<Plant> _plants = Provider.of<PlantsProvider>(context).getPlants();
 
-
     return Container(
       child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
