@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:mobile_sprout/model/plant.dart';
 import 'package:mobile_sprout/providers/plants_provider.dart';
-import 'package:mobile_sprout/widgets/AddPlantListItem.dart';
-import 'package:mobile_sprout/widgets/PlantListItem.dart';
+import 'package:mobile_sprout/widgets/add_plant_list_item.dart';
+import 'package:mobile_sprout/widgets/plant_list_item.dart';
 import 'package:provider/provider.dart';
 
 class PlantListView extends StatelessWidget {
