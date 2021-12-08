@@ -1,7 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobile_sprout/model/plant.dart';
+import 'package:mobile_sprout/providers/plants_provider.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
+import 'package:mobile_sprout/widgets/image_from_plant.dart';
+import 'package:mobile_sprout/widgets/time_series_chart.dart';
 import 'package:provider/provider.dart';
 
 class PlantDetailsView extends StatelessWidget {
@@ -33,7 +39,11 @@ class PlantDetailsView extends StatelessWidget {
                   onPressed: () {},
                   child: Text("Change schedule"),
                 ),
-                TextButton(onPressed: () {}, child: Text("Change photo")),
+                TextButton(
+                    onPressed: () {
+                      selectNewPhoto(context);
+                    },
+                    child: Text("Change photo")),
               ],
             ),
             Text("Upcoming", style: _theme.textTheme.headline2),
@@ -44,6 +54,22 @@ class PlantDetailsView extends StatelessWidget {
             PlantInfo(plant: plant, theme: _theme),
           ]),
     );
+  }
+
+  void selectNewPhoto(BuildContext context) async {
+    final ImagePicker _picker = ImagePicker();
+    final PlantsProvider plantsProvider =
+        Provider.of<PlantsProvider>(context, listen: false);
+    XFile? pic = await _picker.pickImage(source: ImageSource.gallery);
+    var bytes = await pic!.readAsBytes();
+    var modified = Plant(plant.nickname, plant.info, bytes);
+    plantsProvider.updatePlant(plant, modified);
+    // hacky
+    Navigator.pop(context);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PlantDetailsView(plant: modified)));
   }
 }
 
@@ -128,6 +154,7 @@ class PlantInfo extends StatelessWidget {
   }
 }
 
+//todo: parametrize
 class SensorData extends StatelessWidget {
   const SensorData({
     Key? key,
@@ -135,7 +162,20 @@ class SensorData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("data from humidity sensor");
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text("current humidity value: 95%"),
+          SizedBox(
+              width: 200,
+              height: 100,
+              child: SimpleTimeSeriesChart.withRandomData()),
+        ],
+      ),
+    );
   }
 }
 
@@ -186,9 +226,9 @@ class PlantNameAndPicture extends StatelessWidget {
             ],
           ),
           // this will show user picture
-          Image.asset(
-            'assets/aloes.jpeg',
-            scale: 2,
+          ImageFromPlant(
+            plant: plant.getImageBytes(),
+            scaleFactor: 4,
           ),
         ],
       ),

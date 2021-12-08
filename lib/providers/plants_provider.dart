@@ -13,9 +13,9 @@ class PlantsProvider extends ChangeNotifier {
   );
 
   List<Plant> _plants = [
-    Plant("Living Room plant", _info),
-    Plant("Kitchen plant", _info),
-    Plant("My favourite plant", _info),
+    Plant.withPlaceholderImage("Living Room plant", _info),
+    Plant.withPlaceholderImage("Kitchen plant", _info),
+    Plant.withPlaceholderImage("My favourite plant", _info),
   ];
 
   List<Plant> getPlants() => _plants;
@@ -25,8 +25,13 @@ class PlantsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updatePlant(Plant original, Plant modified){
+    _plants.remove(original);
+    addPlant(modified);
+  }
+
   void addPlantMock() {
-    _plants.add(Plant("New added plant", _info));
+    _plants.add(Plant.withPlaceholderImage("New added plant", _info));
     notifyListeners();
   }
 }
