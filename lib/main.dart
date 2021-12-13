@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_sprout/providers/humidity_provider.dart';
+import 'package:mobile_sprout/providers/notification_provider.dart';
 import 'package:mobile_sprout/providers/plants_provider.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
 import 'package:mobile_sprout/screens/navigation_screen.dart';
@@ -23,6 +24,9 @@ class SproutApp extends StatelessWidget {
           ),
           ChangeNotifierProvider.value(
             value: HumidityProvider(),
+          ),
+          ChangeNotifierProvider.value(
+            value: NotificationProvider(),
           ),
           ChangeNotifierProvider.value(
             value: PlantsProvider(),

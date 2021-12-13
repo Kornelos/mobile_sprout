@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mobile_sprout/model/notification.dart';
 import 'package:mobile_sprout/model/plant.dart';
 import 'package:mobile_sprout/providers/plants_provider.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
+import 'package:mobile_sprout/widgets/add_task_form.dart';
 import 'package:mobile_sprout/widgets/image_from_plant.dart';
 import 'package:mobile_sprout/widgets/sensor_data.dart';
 import 'package:mobile_sprout/widgets/time_series_chart.dart';
@@ -33,7 +35,13 @@ class PlantDetailsView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                        return TaskForm(relatedPlantName: plant.nickname);
+                      });
+              },
               child: Text("Change schedule"),
             ),
             TextButton(
@@ -56,7 +64,7 @@ class PlantDetailsView extends StatelessWidget {
   void selectNewPhoto(BuildContext context) async {
     final ImagePicker _picker = ImagePicker();
     final PlantsProvider plantsProvider =
-        Provider.of<PlantsProvider>(context, listen: false);
+    Provider.of<PlantsProvider>(context, listen: false);
     XFile? pic = await _picker.pickImage(source: ImageSource.gallery);
     var bytes = await pic!.readAsBytes();
     var modified = Plant(plant.nickname, plant.info, bytes);
@@ -138,7 +146,7 @@ class PlantInfo extends StatelessWidget {
                   child: CircularProgressIndicator(
                     value: loadingProgress.expectedTotalBytes != null
                         ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
+                        loadingProgress.expectedTotalBytes!
                         : null,
                   ),
                 );
