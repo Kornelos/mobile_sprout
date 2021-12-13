@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,6 +5,7 @@ import 'package:mobile_sprout/model/plant.dart';
 import 'package:mobile_sprout/providers/plants_provider.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
 import 'package:mobile_sprout/widgets/image_from_plant.dart';
+import 'package:mobile_sprout/widgets/sensor_data.dart';
 import 'package:mobile_sprout/widgets/time_series_chart.dart';
 import 'package:provider/provider.dart';
 
@@ -25,34 +24,32 @@ class PlantDetailsView extends StatelessWidget {
         backgroundColor: _theme.appBarTheme.backgroundColor,
         actions: [Icon(Icons.info_outline)],
       ),
-      body: ListView(
-          //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: ListView(children: [
+        PlantNameAndPicture(
+          theme: _theme,
+          plant: plant,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            PlantNameAndPicture(
-              theme: _theme,
-              plant: plant,
+            TextButton(
+              onPressed: () {},
+              child: Text("Change schedule"),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text("Change schedule"),
-                ),
-                TextButton(
-                    onPressed: () {
-                      selectNewPhoto(context);
-                    },
-                    child: Text("Change photo")),
-              ],
-            ),
-            Text("Upcoming", style: _theme.textTheme.headline2),
-            UpcomingActions(),
-            Text("State", style: _theme.textTheme.headline2),
-            SensorData(),
-            Text("Information", style: _theme.textTheme.headline2),
-            PlantInfo(plant: plant, theme: _theme),
-          ]),
+            TextButton(
+                onPressed: () {
+                  selectNewPhoto(context);
+                },
+                child: Text("Change photo")),
+          ],
+        ),
+        Text("Upcoming", style: _theme.textTheme.headline2),
+        UpcomingActions(),
+        Text("State", style: _theme.textTheme.headline2),
+        SensorData(plantName: plant.nickname),
+        Text("Information", style: _theme.textTheme.headline2),
+        PlantInfo(plant: plant, theme: _theme),
+      ]),
     );
   }
 
@@ -154,31 +151,6 @@ class PlantInfo extends StatelessWidget {
   }
 }
 
-//todo: parametrize
-class SensorData extends StatelessWidget {
-  const SensorData({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text("current humidity value: 95%"),
-          SizedBox(
-              width: 200,
-              height: 100,
-              child: SimpleTimeSeriesChart.withRandomData()),
-        ],
-      ),
-    );
-  }
-}
-
 class UpcomingActions extends StatelessWidget {
   const UpcomingActions({
     Key? key,
@@ -225,10 +197,8 @@ class PlantNameAndPicture extends StatelessWidget {
                       .apply(fontStyle: FontStyle.italic)),
             ],
           ),
-          // this will show user picture
           ImageFromPlant(
             plant: plant.getImageBytes(),
-            scaleFactor: 4,
           ),
         ],
       ),

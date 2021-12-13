@@ -5,12 +5,10 @@ import 'package:flutter/widgets.dart';
 
 class ImageFromPlant extends StatefulWidget {
   final Future<Uint8List> plant;
-  final double scaleFactor;
 
   const ImageFromPlant({
     Key? key,
     required this.plant,
-    required this.scaleFactor,
   }) : super(key: key);
 
   @override
@@ -32,7 +30,6 @@ class _ImageFromPlantState extends State<ImageFromPlant> {
               snapshot.data!,
               width: 200,
               height: 200,
-              //scale: widget.scaleFactor,
             );
           } else {
             return Center(
