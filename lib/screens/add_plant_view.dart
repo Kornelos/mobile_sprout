@@ -128,7 +128,7 @@ class _AddPlantViewState extends State<AddPlantView> {
 
   void _addPlantAndGoBack(PlantsProvider plantsProvider) async {
     var plantInfo = await _plantInfoService.getPlantInfo(textController.text);
-    plantsProvider.addPlant(Plant(_nicknameTextController.text, plantInfo));
+    plantsProvider.addPlant(Plant.withPlaceholderImage(_nicknameTextController.text, plantInfo));
     Navigator.pop(context);
     Navigator.pop(context);
   }
