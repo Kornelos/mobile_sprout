@@ -61,9 +61,7 @@ class PlantDetailsView extends StatelessWidget {
     var bytes = await pic!.readAsBytes();
     var modified = Plant(plant.nickname, plant.info, bytes);
     plantsProvider.updatePlant(plant, modified);
-    // hacky
-    Navigator.pop(context);
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => PlantDetailsView(plant: modified)));

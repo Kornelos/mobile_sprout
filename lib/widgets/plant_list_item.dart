@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mobile_sprout/model/plant.dart';
 import 'package:mobile_sprout/screens/plant_details_screen.dart';
+import 'package:mobile_sprout/widgets/image_from_plant.dart';
 
-class PlantListItem extends StatelessWidget {
+class PlantListItem extends StatefulWidget {
   const PlantListItem({Key? key, required this.plant}) : super(key: key);
-
   final Plant plant;
 
+  @override
+  State<PlantListItem> createState() => _PlantListItemState();
+}
+
+class _PlantListItemState extends State<PlantListItem> {
   @override
   Widget build(BuildContext context) {
     // todo: update layout
@@ -18,14 +23,11 @@ class PlantListItem extends StatelessWidget {
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Stack(
           children: [
-            Image.asset(
-              "assets/plant_sprite.png",
-              fit: BoxFit.contain,
-            ),
+            ImageFromPlant(plant: widget.plant.getImageBytes()),
             Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  plant.nickname,
+                  widget.plant.nickname,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 )),
           ],
@@ -33,7 +35,7 @@ class PlantListItem extends StatelessWidget {
       )),
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return PlantDetailsView(plant: plant);
+          return PlantDetailsView(plant: widget.plant);
         }));
       },
     );
