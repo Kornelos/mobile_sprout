@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mobile_sprout/model/task.dart';
 import 'package:mobile_sprout/model/plant.dart';
+import 'package:mobile_sprout/providers/tasks_provider.dart';
 import 'package:mobile_sprout/providers/plants_provider.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
+import 'package:mobile_sprout/screens/plant_list_view.dart';
+import 'package:mobile_sprout/screens/tasks_view.dart';
+import 'package:mobile_sprout/widgets/add_task_form.dart';
 import 'package:mobile_sprout/widgets/image_from_plant.dart';
 import 'package:mobile_sprout/widgets/sensor_data.dart';
 import 'package:mobile_sprout/widgets/time_series_chart.dart';
@@ -33,7 +38,13 @@ class PlantDetailsView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return TaskForm(relatedPlantName: plant.nickname);
+                    });
+              },
               child: Text("Change schedule"),
             ),
             TextButton(
@@ -44,7 +55,10 @@ class PlantDetailsView extends StatelessWidget {
           ],
         ),
         Text("Upcoming", style: _theme.textTheme.headline2),
-        UpcomingActions(),
+        UpcomingActions(
+          relatedPlant: plant.nickname,
+          theme: _theme,
+        ),
         Text("State", style: _theme.textTheme.headline2),
         SensorData(plantName: plant.nickname),
         Text("Information", style: _theme.textTheme.headline2),
@@ -150,19 +164,58 @@ class PlantInfo extends StatelessWidget {
 }
 
 class UpcomingActions extends StatelessWidget {
+  final String relatedPlant;
+  final ThemeData theme;
+
   const UpcomingActions({
     Key? key,
+    required this.relatedPlant,
+    required this.theme,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Text("Watering: 2 days"),
-        Text("Fertilize: 12 days"),
-      ],
+    TasksProvider notificationProvider = Provider.of<TasksProvider>(context);
+    List tasks = notificationProvider.notifications
+        .where((element) => element.relatedPlant == relatedPlant)
+        .toList();
+
+    return Container(
+      height: 50,
+      width: 200,
+      child: tasks.isNotEmpty
+          ? ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: tasks.length,
+              itemBuilder: (BuildContext context, int index) {
+                Task task = tasks[index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1)),
+                    ),
+                    onPressed: () {},
+                    color: Colors.white,
+                    child: Text(
+                        "${task.type.toString().split('.')[1]} ${task.getRelativeDateString()}"),
+                  ),
+                );
+              },
+            )
+          : Text(
+              "No upcoming tasks for $relatedPlant.",
+              style: theme.textTheme.bodyText2,
+            ),
     );
+/*
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+    Text("Watering: 2 days"),
+    Text("Fertilize: 12 days"),
+    ],
+    */
   }
 }
 

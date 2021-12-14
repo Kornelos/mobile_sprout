@@ -7,7 +7,8 @@ class HumidityData {
 
   factory HumidityData.fromJson(Map<String, dynamic> json) {
     List casted = json["hmi_data"] as List;
-    return HumidityData(casted.map((j) => HumidityDataPoint.fromJson(j)).toList());
+    return HumidityData(
+        casted.map((j) => HumidityDataPoint.fromJson(j)).toList());
   }
 }
 

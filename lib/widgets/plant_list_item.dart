@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mobile_sprout/model/plant.dart';
-import 'package:mobile_sprout/screens/plant_details_screen.dart';
+import 'package:mobile_sprout/screens/plant_details_view.dart';
 import 'package:mobile_sprout/widgets/image_from_plant.dart';
 
 class PlantListItem extends StatefulWidget {

@@ -10,7 +10,6 @@ class PlantListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     List<Plant> _plants = Provider.of<PlantsProvider>(context).getPlants();
 
     return Container(
