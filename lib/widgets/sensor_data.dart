@@ -24,7 +24,8 @@ class SensorData extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text("current humidity value: ${humidityData?.humidityDataPoints.last.humidity ?? "-"}%"),
+          Text(
+              "current humidity value: ${humidityData?.humidityDataPoints.last.humidity ?? "-"}%"),
           SizedBox(
             width: 200,
             height: 100,

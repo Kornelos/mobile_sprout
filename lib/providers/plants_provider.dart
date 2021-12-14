@@ -25,7 +25,7 @@ class PlantsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updatePlant(Plant original, Plant modified){
+  void updatePlant(Plant original, Plant modified) {
     _plants.remove(original);
     addPlant(modified);
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mobile_sprout/model/notification.dart';
+import 'package:mobile_sprout/model/task.dart';
 import 'package:mobile_sprout/model/plant.dart';
-import 'package:mobile_sprout/providers/notification_provider.dart';
+import 'package:mobile_sprout/providers/tasks_provider.dart';
 import 'package:mobile_sprout/providers/plants_provider.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
 import 'package:mobile_sprout/screens/plant_list_view.dart';
@@ -169,13 +169,13 @@ class UpcomingActions extends StatelessWidget {
 
   const UpcomingActions({
     Key? key,
-    required this.relatedPlant, required this.theme,
+    required this.relatedPlant,
+    required this.theme,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    NotificationProvider notificationProvider =
-        Provider.of<NotificationProvider>(context);
+    TasksProvider notificationProvider = Provider.of<TasksProvider>(context);
     List tasks = notificationProvider.notifications
         .where((element) => element.relatedPlant == relatedPlant)
         .toList();
@@ -183,26 +183,31 @@ class UpcomingActions extends StatelessWidget {
     return Container(
       height: 50,
       width: 200,
-      child: tasks.isNotEmpty ? ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: tasks.length,
-        itemBuilder: (BuildContext context, int index) {
-          TaskNotification task = tasks[index];
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-                side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1)),
-              ),
-              onPressed: () {},
-              color: Colors.white,
-              child: Text(
-                  "${task.type.toString().split('.')[1]} ${task.getRelativeDateString()}"),
+      child: tasks.isNotEmpty
+          ? ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: tasks.length,
+              itemBuilder: (BuildContext context, int index) {
+                Task task = tasks[index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1)),
+                    ),
+                    onPressed: () {},
+                    color: Colors.white,
+                    child: Text(
+                        "${task.type.toString().split('.')[1]} ${task.getRelativeDateString()}"),
+                  ),
+                );
+              },
+            )
+          : Text(
+              "No upcoming tasks for $relatedPlant.",
+              style: theme.textTheme.bodyText2,
             ),
-          );
-        },
-      ) : Text("No upcoming tasks for $relatedPlant.", style: theme.textTheme.bodyText2,),
     );
 /*
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

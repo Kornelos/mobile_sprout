@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:mobile_sprout/model/notification.dart';
-import 'package:mobile_sprout/providers/notification_provider.dart';
+import 'package:mobile_sprout/model/task.dart';
+import 'package:mobile_sprout/providers/tasks_provider.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -21,8 +21,7 @@ class _TaskFormState extends State<TaskForm> {
   @override
   Widget build(BuildContext context) {
     ThemeData _theme = Provider.of<SettingsProvider>(context).getTheme();
-    NotificationProvider notificationProvider =
-        Provider.of<NotificationProvider>(context);
+    TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
     return AlertDialog(
       title: Text("Change Schedule"),
       content: Container(
@@ -63,8 +62,8 @@ class _TaskFormState extends State<TaskForm> {
       actions: <Widget>[
         TextButton(
             onPressed: () {
-              notificationProvider.addNotification(new TaskNotification(
-                  widget.relatedPlantName, dropdownValue, dueDate));
+              tasksProvider.addNotification(
+                  new Task(widget.relatedPlantName, dropdownValue, dueDate));
               Navigator.pop(context);
             },
             child: Text(

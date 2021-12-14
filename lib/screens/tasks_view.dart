@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mobile_sprout/model/notification.dart';
-import 'package:mobile_sprout/providers/notification_provider.dart';
+import 'package:mobile_sprout/model/task.dart';
+import 'package:mobile_sprout/providers/tasks_provider.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
 
 class TasksView extends StatelessWidget {
   const TasksView({Key? key}) : super(key: key);
@@ -13,30 +12,34 @@ class TasksView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData _theme = Provider.of<SettingsProvider>(context).getTheme();
-    NotificationProvider notificationProvider = Provider.of<NotificationProvider>(context);
+    TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
     return Container(
         color: _theme.scaffoldBackgroundColor,
-        child: notificationProvider.hasNotifications() ? ListView.builder(
-          itemCount: notificationProvider.notifications.length,
-          itemBuilder: (BuildContext context, int index) {
-            TaskNotification task = notificationProvider.notifications[index];
-            return TaskListTile(notificationProvider: notificationProvider, task: task);
-          },
-        ) : Text("You don't have any tasks, add some in your plants.", style: _theme.textTheme.headline3,)
-    );
+        child: tasksProvider.hasNotifications()
+            ? ListView.builder(
+                itemCount: tasksProvider.notifications.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Task task = tasksProvider.notifications[index];
+                  return TaskListTile(
+                      notificationProvider: tasksProvider, task: task);
+                },
+              )
+            : Text(
+                "You don't have any tasks, add some in your plants.",
+                style: _theme.textTheme.headline3,
+              ));
   }
 }
 
 class TaskListTile extends StatelessWidget {
-
   const TaskListTile({
     Key? key,
     required this.notificationProvider,
     required this.task,
   }) : super(key: key);
 
-  final NotificationProvider notificationProvider;
-  final TaskNotification task;
+  final TasksProvider notificationProvider;
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +47,14 @@ class TaskListTile extends StatelessWidget {
       key: UniqueKey(),
       startActionPane: ActionPane(
         motion: const BehindMotion(),
-        dismissible: DismissiblePane(onDismissed: (){
-          notificationProvider.removeTaskNotification(task);
-        },),
+        dismissible: DismissiblePane(
+          onDismissed: () {
+            notificationProvider.removeTaskNotification(task);
+          },
+        ),
         children: [
           SlidableAction(
-            onPressed: (ctx){
+            onPressed: (ctx) {
               notificationProvider.removeTaskNotification(task);
             },
             backgroundColor: Color(0xFFFE4A49),
@@ -63,7 +68,7 @@ class TaskListTile extends StatelessWidget {
         motion: const BehindMotion(),
         children: [
           SlidableAction(
-            onPressed: (_){
+            onPressed: (_) {
               //implement rescheduling
             },
             backgroundColor: Colors.amber,
@@ -76,7 +81,8 @@ class TaskListTile extends StatelessWidget {
       child: ListTile(
         title: Text("${task.relatedPlant}"),
         subtitle: Text("${task.type.toString().split(".")[1]}"),
-        leading: Icon(task.type == NotificationType.Watering ? Icons.water : Icons.yard),
+        leading: Icon(
+            task.type == NotificationType.Watering ? Icons.water : Icons.yard),
         trailing: Text("${task.getRelativeDateString()}"),
       ),
     );

@@ -29,16 +29,14 @@ class Plant extends Equatable {
   List<Object?> get props => [nickname];
 
   Future<Uint8List> loadPlaceholder() async {
-    try
-    {
+    try {
       ByteData data = await rootBundle.load(_placeholderPath);
       return data.buffer.asUint8List();
-    } catch(ex){
+    } catch (ex) {
       log(ex.toString());
     }
-    return  Future.value(Uint8List.fromList(List.empty()));
+    return Future.value(Uint8List.fromList(List.empty()));
   }
-
 }
 
 class PlantInfo extends Equatable {

@@ -11,20 +11,20 @@ void main() {
     //given
     final String plantName = "my_awesome_plant";
     final client = MockClient();
-    HumiditySensorsService humiditySensorsService = LocalHumiditySensorsService(client);
+    HumiditySensorsService humiditySensorsService =
+        LocalHumiditySensorsService(client);
 
     //when
-    when(client
-        .get(Uri.parse(LocalHumiditySensorsService.sensorOrchestratorUrl + plantName)))
-        .thenAnswer(
-            (_) async => http.Response(deviceResponse(), 200));
+    when(client.get(Uri.parse(
+            LocalHumiditySensorsService.sensorOrchestratorUrl + plantName)))
+        .thenAnswer((_) async => http.Response(deviceResponse(), 200));
     HumidityData humidityData =
         await humiditySensorsService.getHumidityDataForPlant(plantName);
 
     //then
     expect(humidityData.humidityDataPoints.length, 4);
-    expect(humidityData.humidityDataPoints.first.datetime, DateTime(2021,12,13,19));
-
+    expect(humidityData.humidityDataPoints.first.datetime,
+        DateTime(2021, 12, 13, 19));
   });
 }
 
