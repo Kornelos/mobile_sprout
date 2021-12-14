@@ -3,8 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_sprout/model/notification.dart';
 import 'package:mobile_sprout/model/plant.dart';
+import 'package:mobile_sprout/providers/notification_provider.dart';
 import 'package:mobile_sprout/providers/plants_provider.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
+import 'package:mobile_sprout/screens/plant_list_view.dart';
+import 'package:mobile_sprout/screens/tasks_view.dart';
 import 'package:mobile_sprout/widgets/add_task_form.dart';
 import 'package:mobile_sprout/widgets/image_from_plant.dart';
 import 'package:mobile_sprout/widgets/sensor_data.dart';
@@ -39,8 +42,8 @@ class PlantDetailsView extends StatelessWidget {
                 showDialog(
                     context: context,
                     builder: (context) {
-                        return TaskForm(relatedPlantName: plant.nickname);
-                      });
+                      return TaskForm(relatedPlantName: plant.nickname);
+                    });
               },
               child: Text("Change schedule"),
             ),
@@ -52,7 +55,10 @@ class PlantDetailsView extends StatelessWidget {
           ],
         ),
         Text("Upcoming", style: _theme.textTheme.headline2),
-        UpcomingActions(),
+        UpcomingActions(
+          relatedPlant: plant.nickname,
+          theme: _theme,
+        ),
         Text("State", style: _theme.textTheme.headline2),
         SensorData(plantName: plant.nickname),
         Text("Information", style: _theme.textTheme.headline2),
@@ -64,7 +70,7 @@ class PlantDetailsView extends StatelessWidget {
   void selectNewPhoto(BuildContext context) async {
     final ImagePicker _picker = ImagePicker();
     final PlantsProvider plantsProvider =
-    Provider.of<PlantsProvider>(context, listen: false);
+        Provider.of<PlantsProvider>(context, listen: false);
     XFile? pic = await _picker.pickImage(source: ImageSource.gallery);
     var bytes = await pic!.readAsBytes();
     var modified = Plant(plant.nickname, plant.info, bytes);
@@ -146,7 +152,7 @@ class PlantInfo extends StatelessWidget {
                   child: CircularProgressIndicator(
                     value: loadingProgress.expectedTotalBytes != null
                         ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
+                            loadingProgress.expectedTotalBytes!
                         : null,
                   ),
                 );
@@ -158,19 +164,53 @@ class PlantInfo extends StatelessWidget {
 }
 
 class UpcomingActions extends StatelessWidget {
+  final String relatedPlant;
+  final ThemeData theme;
+
   const UpcomingActions({
     Key? key,
+    required this.relatedPlant, required this.theme,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Text("Watering: 2 days"),
-        Text("Fertilize: 12 days"),
-      ],
+    NotificationProvider notificationProvider =
+        Provider.of<NotificationProvider>(context);
+    List tasks = notificationProvider.notifications
+        .where((element) => element.relatedPlant == relatedPlant)
+        .toList();
+
+    return Container(
+      height: 50,
+      width: 200,
+      child: tasks.isNotEmpty ? ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: tasks.length,
+        itemBuilder: (BuildContext context, int index) {
+          TaskNotification task = tasks[index];
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+                side: BorderSide(color: Color.fromRGBO(0, 160, 227, 1)),
+              ),
+              onPressed: () {},
+              color: Colors.white,
+              child: Text(
+                  "${task.type.toString().split('.')[1]} ${task.getRelativeDateString()}"),
+            ),
+          );
+        },
+      ) : Text("No upcoming tasks for $relatedPlant.", style: theme.textTheme.bodyText2,),
     );
+/*
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+    Text("Watering: 2 days"),
+    Text("Fertilize: 12 days"),
+    ],
+    */
   }
 }
 
