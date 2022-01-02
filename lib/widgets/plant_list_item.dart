@@ -11,7 +11,7 @@ class PlantListItem extends StatefulWidget {
   @override
   State<PlantListItem> createState() => _PlantListItemState();
 }
-
+//tODO: change this https://stackoverflow.com/questions/55641880/leading-image-overflows-in-listtile
 class _PlantListItemState extends State<PlantListItem> {
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_sprout/model/plant.dart';
 import 'package:mobile_sprout/providers/plants_provider.dart';
@@ -127,11 +128,16 @@ class _AddPlantViewState extends State<AddPlantView> {
   }
 
   void _addPlantAndGoBack(PlantsProvider plantsProvider) async {
-    var plantInfo = await _plantInfoService.getPlantInfo(textController.text);
-    plantsProvider.addPlant(
-        Plant.withPlaceholderImage(_nicknameTextController.text, plantInfo));
-    Navigator.pop(context);
-    Navigator.pop(context);
+    try {
+      var plantInfo = await _plantInfoService.getPlantInfo(textController.text);
+      plantsProvider.addPlant(
+          Plant.withPlaceholderImage(_nicknameTextController.text, plantInfo));
+      Navigator.pop(context);
+      Navigator.pop(context);
+    } catch(ex){
+      Fluttertoast.showToast(msg: "Failed to add plant with selected name, try different one.");
+      Navigator.pop(context);
+    }
   }
 
   Future<void> _displayTextInputDialog(
