@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:mobile_sprout/model/plant.dart';
 
 class PlantsProvider extends ChangeNotifier {
@@ -20,6 +21,11 @@ class PlantsProvider extends ChangeNotifier {
 
   List<Plant> getPlants() => _plants;
 
+  Plant? getPlantNamed(String name) {
+    var maybePlant = _plants.where((element) => element.nickname == name);
+    return maybePlant.isNotEmpty ? maybePlant.first : null;
+  }
+
   void addPlant(Plant plant) {
     _plants.add(plant);
     notifyListeners();
@@ -33,5 +39,20 @@ class PlantsProvider extends ChangeNotifier {
   void addPlantMock() {
     _plants.add(Plant.withPlaceholderImage("New added plant", _info));
     notifyListeners();
+  }
+
+  void deletePlant(Plant plant) {
+    _plants.remove(plant);
+    notifyListeners();
+  }
+
+  void renamePlant(Plant plant, String newName) {
+    _plants.remove(plant);
+    _plants.add(plant.createRenamed(newName));
+    notifyListeners();
+  }
+
+  bool plantNamedExists(String name) {
+    return _plants.where((element) => element.nickname == name).isNotEmpty;
   }
 }
