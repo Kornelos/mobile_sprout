@@ -1,16 +1,19 @@
 # mobile_sprout
 
-app for plant management
+Mobile app for plant management created for WAPM course @ EITI PW.
 
-## Getting Started
+## modules
 
-This project is a starting point for a Flutter application.
+### mobile app
 
-A few resources to get you started if this is your first Flutter project:
+Flutter based app created using material design elements, can be released both for Android and iOS.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### sprout functions
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Google Cloud Functions written in Golang. They ask external APIs and factilitate caching on Google Cloud storage.
+- `plant-info` used for fetching descriptions and informations for given plant name.
+- `plant-image-search` returns plant name for given image.
+
+### pysensor manager
+
+Orchestrator for Humidity sensors written in Python and FastApi.
