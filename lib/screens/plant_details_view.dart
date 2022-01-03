@@ -10,8 +10,10 @@ import 'package:mobile_sprout/screens/plant_list_view.dart';
 import 'package:mobile_sprout/screens/tasks_view.dart';
 import 'package:mobile_sprout/widgets/add_task_form.dart';
 import 'package:mobile_sprout/widgets/image_from_plant.dart';
+import 'package:mobile_sprout/widgets/rename_plant_form.dart';
 import 'package:mobile_sprout/widgets/sensor_data.dart';
 import 'package:mobile_sprout/widgets/time_series_chart.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class PlantDetailsView extends StatelessWidget {
@@ -27,34 +29,28 @@ class PlantDetailsView extends StatelessWidget {
       appBar: AppBar(
         iconTheme: _theme.iconTheme,
         backgroundColor: _theme.appBarTheme.backgroundColor,
-        actions: [Icon(Icons.info_outline)],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.more_horiz),
+            onPressed: () {
+              showMaterialModalBottomSheet(
+                context: context,
+                expand: false,
+                backgroundColor: Colors.transparent,
+                builder: (context) => PlantDetailsModal(
+                  plant: plant,
+                ),
+              );
+            },
+          )
+        ],
       ),
       body: ListView(children: [
         PlantNameAndPicture(
           theme: _theme,
           plant: plant,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return TaskForm(relatedPlantName: plant.nickname);
-                    });
-              },
-              child: Text("Change schedule"),
-            ),
-            TextButton(
-                onPressed: () {
-                  selectNewPhoto(context);
-                },
-                child: Text("Change photo")),
-          ],
-        ),
-        Text("Upcoming", style: _theme.textTheme.headline2),
+        Text("Upcoming tasks", style: _theme.textTheme.headline2),
         UpcomingActions(
           relatedPlant: plant.nickname,
           theme: _theme,
@@ -65,20 +61,6 @@ class PlantDetailsView extends StatelessWidget {
         PlantInfo(plant: plant, theme: _theme),
       ]),
     );
-  }
-
-  void selectNewPhoto(BuildContext context) async {
-    final ImagePicker _picker = ImagePicker();
-    final PlantsProvider plantsProvider =
-        Provider.of<PlantsProvider>(context, listen: false);
-    XFile? pic = await _picker.pickImage(source: ImageSource.gallery);
-    var bytes = await pic!.readAsBytes();
-    var modified = Plant(plant.nickname, plant.info, bytes);
-    plantsProvider.updatePlant(plant, modified);
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PlantDetailsView(plant: modified)));
   }
 }
 
@@ -254,5 +236,88 @@ class PlantNameAndPicture extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class PlantDetailsModal extends StatelessWidget {
+  final Plant plant;
+
+  const PlantDetailsModal({Key? key, required this.plant}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    PlantsProvider _plantsProvider = Provider.of<PlantsProvider>(context);
+
+    return Material(
+        child: SafeArea(
+      top: false,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            title: Text('Rename plant'),
+            leading: Icon(Icons.edit),
+            onTap: () {
+              Navigator.of(context).pop();
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return RenamePlantForm(relatedPlant: plant);
+                  });
+            },
+          ),
+          ListTile(
+            title: Text('Change schedule'),
+            leading: Icon(Icons.calendar_today),
+            onTap: () {
+              Navigator.of(context).pop();
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return TaskForm(relatedPlantName: plant.nickname);
+                  });
+              //Navigator.of(context).pop();
+            },
+          ),
+          ListTile(
+            title: Text('Change photo'),
+            leading: Icon(Icons.photo_camera),
+            onTap: () {
+              selectNewPhoto(context);
+              Navigator.of(context).pop();
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Delete plant',
+              style: TextStyle(color: Colors.red),
+            ),
+            leading: Icon(
+              Icons.delete,
+              color: Colors.red,
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              _plantsProvider.deletePlant(plant);
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      ),
+    ));
+  }
+
+  void selectNewPhoto(BuildContext context) async {
+    final ImagePicker _picker = ImagePicker();
+    final PlantsProvider plantsProvider =
+        Provider.of<PlantsProvider>(context, listen: false);
+    XFile? pic = await _picker.pickImage(source: ImageSource.gallery);
+    var bytes = await pic!.readAsBytes();
+    var modified = Plant(plant.nickname, plant.info, bytes);
+    plantsProvider.updatePlant(plant, modified);
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PlantDetailsView(plant: modified)));
   }
 }

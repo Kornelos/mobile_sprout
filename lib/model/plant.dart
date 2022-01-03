@@ -37,6 +37,11 @@ class Plant extends Equatable {
     }
     return Future.value(Uint8List.fromList(List.empty()));
   }
+
+  Plant createRenamed(String newName){
+    return Plant(newName, info, _imageBytes);
+  }
+
 }
 
 class PlantInfo extends Equatable {
