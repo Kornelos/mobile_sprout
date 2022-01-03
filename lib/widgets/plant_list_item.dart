@@ -1,38 +1,55 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:getwidget/components/card/gf_card.dart';
+import 'package:getwidget/components/list_tile/gf_list_tile.dart';
+import 'package:getwidget/position/gf_position.dart';
 import 'package:mobile_sprout/model/plant.dart';
 import 'package:mobile_sprout/screens/plant_details_view.dart';
-import 'package:mobile_sprout/widgets/image_from_plant.dart';
 
 class PlantListItem extends StatefulWidget {
   const PlantListItem({Key? key, required this.plant}) : super(key: key);
   final Plant plant;
 
   @override
-  State<PlantListItem> createState() => _PlantListItemState();
+  State<PlantListItem> createState() =>
+      _PlantListItemState(plant.getImageBytes(), plant);
 }
 
 class _PlantListItemState extends State<PlantListItem> {
+  final Future<Uint8List> _plantImageBytes;
+  final Plant _plant;
+
+  _PlantListItemState(this._plantImageBytes, this._plant);
+
   @override
   Widget build(BuildContext context) {
-    // todo: update layout
     return GestureDetector(
-      child: Container(
-          child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3.0)),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: Stack(
-          children: [
-            ImageFromPlant(plant: widget.plant.getImageBytes()),
-            Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  widget.plant.nickname,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                )),
-          ],
-        ),
-      )),
+      child: FutureBuilder(
+        future: _plantImageBytes,
+        builder: (BuildContext ctx, AsyncSnapshot<Uint8List> snapshot) {
+          if (snapshot.hasData) {
+            return GFCard(
+              boxFit: BoxFit.cover,
+              titlePosition: GFPosition.start,
+              showImage: true,
+              image: Image.memory(
+                snapshot.data!,
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: MediaQuery.of(context).size.width,
+                fit: BoxFit.contain,
+              ),
+              title: GFListTile(
+                titleText: _plant.nickname,
+                subTitleText: _plant.info.binomialName,
+              ),
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      ),
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return PlantDetailsView(plant: widget.plant);

@@ -12,7 +12,7 @@ class PlantInfoService {
   PlantInfoService(this.httpClient);
 
   Future<PlantInfo> getPlantInfo(String name) async {
-    final response = await httpClient.get(Uri.parse(getPlantInfoUrl + name));
+    final response = await httpClient.get(Uri.parse(getPlantInfoUrl + name)).timeout(Duration(seconds: 5));
     if (response.statusCode == 200) {
       return PlantInfo.fromJson(jsonDecode(response.body));
     } else {

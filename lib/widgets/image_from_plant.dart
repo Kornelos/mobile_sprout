@@ -26,10 +26,14 @@ class _ImageFromPlantState extends State<ImageFromPlant> {
         future: _imageBytes,
         builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
           if (snapshot.hasData) {
-            return Image.memory(
-              snapshot.data!,
+            return SizedBox(
               width: 200,
               height: 200,
+              child: Image.memory(
+                snapshot.data!,
+                width: 200,
+                height: 200,
+              ),
             );
           } else {
             return Center(
