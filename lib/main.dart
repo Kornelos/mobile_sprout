@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mobile_sprout/model/plant.dart';
+import 'package:mobile_sprout/model/task.dart';
 import 'package:mobile_sprout/providers/humidity_provider.dart';
 import 'package:mobile_sprout/providers/tasks_provider.dart';
 import 'package:mobile_sprout/providers/plants_provider.dart';
@@ -20,6 +21,7 @@ Future<void> main() async {
 void _registerHiveAdapters() {
   Hive.registerAdapter(PlantAdapter());
   Hive.registerAdapter(PlantInfoAdapter());
+  Hive.registerAdapter(TaskAdapter());
 }
 
 class SproutApp extends StatelessWidget {
