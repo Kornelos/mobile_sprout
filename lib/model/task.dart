@@ -1,16 +1,16 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'hive_types.dart';
+import '../persist/hive_config.dart';
 
 part 'task.g.dart';
 
-@HiveType(typeId: HiveFields.TASK)
+@HiveType(typeId: HiveConfig.TASK)
 class Task extends Equatable {
   @HiveField(1)
   final String relatedPlant;
   @HiveField(2)
-  final NotificationType type;
+  final TaskType type;
   @HiveField(3)
   final DateTime dueDate;
 
@@ -31,4 +31,10 @@ class Task extends Equatable {
   }
 }
 
-enum NotificationType { Watering, Fertilizing }
+@HiveType(typeId: HiveConfig.TASK_TYPE)
+enum TaskType {
+  @HiveField(0)
+  Watering,
+  @HiveField(1)
+  Fertilizing
+}

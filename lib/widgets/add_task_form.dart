@@ -14,7 +14,7 @@ class TaskForm extends StatefulWidget {
 }
 
 class _TaskFormState extends State<TaskForm> {
-  NotificationType dropdownValue = NotificationType.Watering;
+  TaskType dropdownValue = TaskType.Watering;
   DateTime dueDate = DateTime.now();
   bool formComplete = false;
 
@@ -30,14 +30,14 @@ class _TaskFormState extends State<TaskForm> {
         child: ListView(
           children: [
             Text("Task type", style: _theme.textTheme.headline3),
-            DropdownButton<NotificationType>(
+            DropdownButton<TaskType>(
                 value: dropdownValue,
-                onChanged: (NotificationType? newVal) {
+                onChanged: (TaskType? newVal) {
                   setState(() {
                     dropdownValue = newVal!;
                   });
                 },
-                items: NotificationType.values
+                items: TaskType.values
                     .map((e) => DropdownMenuItem(
                         value: e, child: Text(e.toString().split('.')[1])))
                     .toList()),

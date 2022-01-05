@@ -5,13 +5,13 @@ import 'dart:typed_data';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
-import 'package:mobile_sprout/model/hive_types.dart';
+import 'package:mobile_sprout/persist/hive_config.dart';
 
-import 'hive_types.dart';
+import '../persist/hive_config.dart';
 
 part 'plant.g.dart';
 
-@HiveType(typeId: HiveFields.PLANT)
+@HiveType(typeId: HiveConfig.PLANT)
 class Plant extends Equatable {
   @HiveField(1)
   final String nickname;
@@ -54,7 +54,7 @@ class Plant extends Equatable {
   }
 
 }
-@HiveType(typeId: HiveFields.PLANT_INFO)
+@HiveType(typeId: HiveConfig.PLANT_INFO)
 class PlantInfo extends Equatable {
   const PlantInfo(this.name, this.type, this.binomialName, this.description,
       this.sunRequirements, this.sowingMethod, this.mainImagePath);

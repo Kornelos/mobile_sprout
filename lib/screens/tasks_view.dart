@@ -82,7 +82,7 @@ class TaskListTile extends StatelessWidget {
         title: Text("${task.relatedPlant}"),
         subtitle: Text("${task.type.toString().split(".")[1]}"),
         leading: Icon(
-            task.type == NotificationType.Watering ? Icons.water : Icons.yard),
+            task.type == TaskType.Watering ? Icons.water : Icons.yard),
         trailing: Text("${task.getRelativeDateString()}"),
       ),
     );

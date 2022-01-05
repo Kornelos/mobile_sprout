@@ -6,11 +6,11 @@ class TasksProvider extends ChangeNotifier {
   static const String TASKS_KEY = "notifications";
 
   List<Task> tasks = [
-    Task("Living Room plant", NotificationType.Watering,
+    Task("Living Room plant", TaskType.Watering,
         DateTime.now().add(Duration(hours: 1))),
-    Task("Kitchen plant", NotificationType.Fertilizing,
+    Task("Kitchen plant", TaskType.Fertilizing,
         DateTime.now().add(Duration(hours: 2))),
-    Task("Living Room plant", NotificationType.Watering,
+    Task("Living Room plant", TaskType.Watering,
         DateTime.now().add(Duration(days: 4)))
   ];
 
