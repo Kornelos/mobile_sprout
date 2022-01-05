@@ -17,9 +17,9 @@ class TasksView extends StatelessWidget {
         color: _theme.scaffoldBackgroundColor,
         child: tasksProvider.hasNotifications()
             ? ListView.builder(
-                itemCount: tasksProvider.notifications.length,
+                itemCount: tasksProvider.tasks.length,
                 itemBuilder: (BuildContext context, int index) {
-                  Task task = tasksProvider.notifications[index];
+                  Task task = tasksProvider.tasks[index];
                   return TaskListTile(
                       notificationProvider: tasksProvider, task: task);
                 },
