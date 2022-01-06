@@ -17,9 +17,9 @@ class TasksView extends StatelessWidget {
         color: _theme.scaffoldBackgroundColor,
         child: tasksProvider.hasNotifications()
             ? ListView.builder(
-                itemCount: tasksProvider.notifications.length,
+                itemCount: tasksProvider.tasks.length,
                 itemBuilder: (BuildContext context, int index) {
-                  Task task = tasksProvider.notifications[index];
+                  Task task = tasksProvider.tasks[index];
                   return TaskListTile(
                       notificationProvider: tasksProvider, task: task);
                 },
@@ -82,7 +82,7 @@ class TaskListTile extends StatelessWidget {
         title: Text("${task.relatedPlant}"),
         subtitle: Text("${task.type.toString().split(".")[1]}"),
         leading: Icon(
-            task.type == NotificationType.Watering ? Icons.water : Icons.yard),
+            task.type == TaskType.Watering ? Icons.water : Icons.yard),
         trailing: Text("${task.getRelativeDateString()}"),
       ),
     );

@@ -4,11 +4,22 @@ import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
+import 'package:mobile_sprout/persist/hive_config.dart';
 
+import '../persist/hive_config.dart';
+
+part 'plant.g.dart';
+
+@HiveType(typeId: HiveConfig.PLANT)
 class Plant extends Equatable {
+  @HiveField(1)
   final String nickname;
+  @HiveField(2)
   final PlantInfo info;
+  @HiveField(3)
   final Uint8List? _imageBytes;
+  @HiveField(4)
   final String _placeholderPath = 'assets/plant_sprite.png';
 
   Plant(this.nickname, this.info, this._imageBytes);
@@ -43,17 +54,23 @@ class Plant extends Equatable {
   }
 
 }
-
+@HiveType(typeId: HiveConfig.PLANT_INFO)
 class PlantInfo extends Equatable {
   const PlantInfo(this.name, this.type, this.binomialName, this.description,
       this.sunRequirements, this.sowingMethod, this.mainImagePath);
-
+  @HiveField(1)
   final String name;
+  @HiveField(2)
   final String type;
+  @HiveField(3)
   final String binomialName;
+  @HiveField(4)
   final String description;
+  @HiveField(5)
   final String sunRequirements;
+  @HiveField(6)
   final String sowingMethod;
+  @HiveField(7)
   final String mainImagePath;
 
   @override

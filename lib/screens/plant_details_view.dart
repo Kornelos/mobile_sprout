@@ -158,7 +158,7 @@ class UpcomingActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TasksProvider notificationProvider = Provider.of<TasksProvider>(context);
-    List tasks = notificationProvider.notifications
+    List tasks = notificationProvider.tasks
         .where((element) => element.relatedPlant == relatedPlant)
         .toList();
 

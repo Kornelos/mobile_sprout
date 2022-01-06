@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mobile_sprout/persist/hive_config.dart';
 import 'package:mobile_sprout/providers/humidity_provider.dart';
 import 'package:mobile_sprout/providers/tasks_provider.dart';
 import 'package:mobile_sprout/providers/plants_provider.dart';
@@ -7,13 +9,18 @@ import 'package:mobile_sprout/screens/navigation_screen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
+  await Hive.initFlutter();
+  HiveConfig.registerHiveAdapters();
+  Box box = await Hive.openBox("inMemory");
   runApp(
-    SproutApp(),
+    SproutApp(box: box),
   );
 }
 
 class SproutApp extends StatelessWidget {
-  const SproutApp({Key? key}) : super(key: key);
+  final Box box;
+
+  const SproutApp({Key? key, required this.box}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +33,10 @@ class SproutApp extends StatelessWidget {
             value: HumidityProvider(),
           ),
           ChangeNotifierProvider.value(
-            value: TasksProvider(),
+            value: TasksProvider(box),
           ),
           ChangeNotifierProvider.value(
-            value: PlantsProvider(),
+            value: PlantsProvider(box),
           )
         ],
         child: MaterialApp(

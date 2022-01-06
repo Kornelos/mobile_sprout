@@ -19,8 +19,8 @@ class PlantListView extends StatelessWidget {
       child: Scaffold(
           body: _plants.isNotEmpty
               ? GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 400,
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: MediaQuery.of(context).size.width,
                       childAspectRatio: 1.25,
                       crossAxisSpacing: 1,
                       mainAxisSpacing: 1),
