@@ -12,13 +12,14 @@ class PlantInfoService {
   PlantInfoService(this.httpClient);
 
   Future<PlantInfo> getPlantInfo(String name) async {
-    final response = await httpClient.get(Uri.parse(getPlantInfoUrl + name)).timeout(Duration(seconds: 5));
+    var processedName = name.split(" ")[0];
+    final response = await httpClient.get(Uri.parse(getPlantInfoUrl + processedName)).timeout(Duration(seconds: 5));
     if (response.statusCode == 200) {
       return PlantInfo.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception. (to decide if empty info should be returned)
-      throw Exception('Failed to get plant info for $name');
+      throw Exception('Failed to get plant info for $processedName');
     }
   }
 }
