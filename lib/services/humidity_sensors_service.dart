@@ -14,8 +14,7 @@ abstract class HumiditySensorsService {
 * which collects and sends data to app over HTTP protocol. This solution
 * allows to collect and view live data even if mobile is not in sensor proximity. */
 class LocalHumiditySensorsService implements HumiditySensorsService {
-  static final sensorOrchestratorUrl =
-      "http://10.0.2.2:8000/"; // AVD uses 10.0.2.2 as an alias to your host loopback interface
+  static final sensorOrchestratorUrl = "https://sprout-331812.appspot.com/";
   final http.Client httpClient;
   final Map<String, String> plantToSensor = Map<String, String>();
 
