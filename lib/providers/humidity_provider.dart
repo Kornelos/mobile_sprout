@@ -10,7 +10,9 @@ class HumidityProvider extends ChangeNotifier {
       LocalHumiditySensorsService(http.Client());
 
   HumidityData? getDataForPlant(String name) {
-    queryForDataUpdateFor(name).whenComplete(() => notifyListeners());
+    if(!plantToHumidityData.containsKey(name)) {
+      queryForDataUpdateFor(name).whenComplete(() => notifyListeners());
+    }
     return plantToHumidityData[name];
   }
 
