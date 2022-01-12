@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_sign_in/widgets.dart';
 import 'package:mobile_sprout/providers/settings_provider.dart';
+import 'package:mobile_sprout/providers/user_provider.dart';
+import 'package:mobile_sprout/screens/sign_in_view.dart';
 import 'package:provider/provider.dart';
 
 class ProfileView extends StatelessWidget {
@@ -10,6 +13,15 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData _theme = Provider.of<SettingsProvider>(context).getTheme();
+    UserProvider userProvider = Provider.of<UserProvider>(context);
+
+    Widget userWidget = userProvider.getUser() != null ? ListTile(
+      leading: GoogleUserCircleAvatar(
+        identity: userProvider.getUser()!,
+      ),
+      title: Text(userProvider.getUser()!.displayName ?? ''),
+      subtitle: Text(userProvider.getUser()!.email),
+    ): Container();
 
     return Container(
       child: ListView(children: [
@@ -19,6 +31,7 @@ class ProfileView extends StatelessWidget {
               "Settings",
               style: _theme.textTheme.headline1,
             )),
+        userWidget,
         ListTile(
           title: Text(
             'Dark Mode',
@@ -33,9 +46,15 @@ class ProfileView extends StatelessWidget {
         ListTile(
           title: Text('Log out', style: _theme.textTheme.button),
           trailing: Icon(Icons.logout),
+          onTap: ()=>logout(context,userProvider),
         ),
       ]),
     );
+  }
+
+  void logout(BuildContext context, UserProvider userProvider) {
+    userProvider.logout();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignInView()));
   }
 }
 
