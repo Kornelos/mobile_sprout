@@ -55,7 +55,7 @@ class _AddPlantViewState extends State<AddPlantView> {
                 children: [
                   TextButton.icon(
                     style: TextButton.styleFrom(
-                      textStyle: TextStyle(color: Colors.white),
+                      primary: Colors.white,
                       backgroundColor: Colors.lightGreen,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24.0),
@@ -72,7 +72,7 @@ class _AddPlantViewState extends State<AddPlantView> {
                   const SizedBox(width: 16),
                   TextButton.icon(
                     style: TextButton.styleFrom(
-                      textStyle: TextStyle(color: Colors.white),
+                      primary: Colors.white,
                       backgroundColor: Colors.lightGreen,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(24.0),
@@ -91,7 +91,7 @@ class _AddPlantViewState extends State<AddPlantView> {
               padding: EdgeInsets.all(16),
               child: TextButton.icon(
                 style: TextButton.styleFrom(
-                  textStyle: TextStyle(color: Colors.white),
+                  primary: Colors.white,
                   backgroundColor: Colors.lightGreen,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24.0),
