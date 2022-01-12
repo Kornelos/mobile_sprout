@@ -1,2 +1,5 @@
-runtime: python37
-entrypoint: uvicorn main:app
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT main:app
+runtime_config:
+  python_version: 3
